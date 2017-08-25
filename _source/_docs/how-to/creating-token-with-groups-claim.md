@@ -13,7 +13,7 @@ need to dynamically set group whitelists on a per-application basis.
 
 ### Before You Start
 
-* Create an OpenID Connect client with the [Apps API](/docs/api/resources/apps.html#request-example-8). In the instruction examples, the client ID is `0oaaggpxeqxTDuP780h7`.
+* Create an OpenID Connect or Oauth 2.0 client with the [Apps API](/docs/api/resources/apps.html#request-example-8). In the instruction examples, the client ID is `0oaaggpxeqxTDuP780h7`.
 * Create the groups that you wish to configure in the groups claim. In the instruction examples, we're configuring the `WestCoastDivision` group, and its group ID is `00gbhqhpycZwp0c2A0h7`.
 
 ### Create a Token with a Groups Claim
@@ -73,7 +73,7 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
     ~~~
     
 
-1. If you only have one or two groups to specify, simply add the group IDs to the Okta EL function in the next step.
+2. If you only have one or two groups to specify, simply add the group IDs to the Okta EL function in the next step.
    However, if you have a lot of groups to whitelist, you can put the group IDs in the client app's profile property bag: `/{yourOktaDomain}.com/api/v1/apps/:aid`.
    This example names the group whitelist `groupwhitelist`, but you can name it anything.
     
@@ -127,7 +127,7 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
 
     If you want to use this group whitelist for every client that gets this claim in a token, put the `groupId` in the first parameter of the `getFilteredGroups` function described below. 
  
-2. Add a custom claim for ID token on a Custom Authorization Server with the following function: `getFilteredGroups({group ID list}, {value-to-represent-the-group-in-the-token}, {maximum number of groups to include in token. Must be less than 100.})`.
+3. Add a custom claim for ID token on a Custom Authorization Server with the following function: `getFilteredGroups({group ID list}, {value-to-represent-the-group-in-the-token}, {maximum number of groups to include in token. Must be less than 100.})`.
     
     ~~~curl
         curl -X POST \
@@ -141,7 +141,7 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
         	"status": "ACTIVE",
         	"claimType": "RESOURCE",
         	"valueType": "EXPRESSION",
-        	"value": "\"getFilteredGroups(app.profile.groupwhitelist, group.name, 40\"",
+        	"value": "\"getFilteredGroups(app.profile.groupwhitelist, group.name, 40)\"",
         	"conditions": {
         		"scopes": [
         			"groups:whitelist"
@@ -152,9 +152,9 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
           
     You can also see this value in the Okta UI for claims, under **Mapping**: `getFilteredGroups(app.profile.groupwhitelist, "group.name", 40)`.
     
-    See [group function documentation](/reference/okta_expression_language/#group-functions) for more information about specifying groups with the `getFilteredGroups`.
+    See [group function documentation](/reference/okta_expression_language/#group-functions) for more information about specifying groups with `getFilteredGroups`.
 
-3. POST to the token endpoint `/{yourOktaDomain}.com/oauth2/:authorizationServerId/v1/token` with the user or client you want. Make sure the user is assigned to the app and to one of the groups from your whitelist.
+4. POST to the token endpoint `/{yourOktaDomain}.com/oauth2/:authorizationServerId/v1/token` with the user or client you want. Make sure the user is assigned to the app and to one of the groups from your whitelist.
 
     ~~~curl
     curl -X POST \
@@ -166,4 +166,5 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
       -d 'grant_type=authorization_code&redirect_uri=%7B%7BredirectUri%7D%7D&code=%7B%7BauthorizationCode%7D%7D'
       ~~~
 
-4. Decode the JWT in the response to see that the groups are in the token. 
+5. Decode the JWT in the response to see that the groups are in the token. 
+
