@@ -22,9 +22,9 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
 
 1. Get the group IDs you want to whitelist: `/{yourOktaDomain}.com/api/v1/groups`
    Note that this example uses one `groupId` for simplicity's sake.
-
    Request Example:
-    ~~~
+   
+    ~~~http
     curl -X GET \
       -H 'Accept: application/json' \
       -H 'Authorization: SSWS ${api_token}' \
@@ -33,6 +33,7 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
     ~~~
     
     Response Example:
+    
     ~~~json
      [
         {
