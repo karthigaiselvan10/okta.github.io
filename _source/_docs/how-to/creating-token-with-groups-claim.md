@@ -29,7 +29,7 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
       -H 'Accept: application/json' \
       -H 'Authorization: SSWS ${api_token}' \
       -H 'Content-Type: application/json' \
-      "http://{yourOktaDomain}.com/api/v1/groups"
+      "https://{yourOktaDomain}.com/api/v1/groups"
     ~~~
     
     Response Example:
@@ -81,7 +81,7 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
     Request Example:
     ~~~curl
     curl -X POST \
-      http://{yourOktaDomain}.com/api/v1/apps/xfnIflwIn2TkbpNBs6JQ \
+      https://{yourOktaDomain}.com/api/v1/apps/xfnIflwIn2TkbpNBs6JQ \
       -H 'accept: application/json' \
       -H 'authorization: SSWS ${api_token}' \
       -H 'cache-control: no-cache' \
@@ -132,13 +132,13 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
     
     ~~~curl
         curl -X POST \
-          http://{yourOktaDomain}.com/api/v1/authorizationServers/ausain6z9zIedDCxB0h7/claims \
+          https://{yourOktaDomain}.com/api/v1/authorizationServers/ausain6z9zIedDCxB0h7/claims \
           -H 'accept: application/json' \
           -H 'authorization: SSWS ${api_token}' \
           -H 'cache-control: no-cache' \
           -H 'content-type: application/json' \
           -d '{
-        	"name": "groupWhitelist",
+        	"name": "mygroupWhitelist",
         	"status": "ACTIVE",
         	"claimType": "RESOURCE",
         	"valueType": "EXPRESSION",
@@ -147,7 +147,7 @@ You'll assign a group whitelist to your OpenID Connect client, and configure a g
         }'
     ~~~
           
-    You can also see this value in the Okta UI for claims, under **Mapping**: `getFilteredGroups(app.profile.groupwhitelist, "group.name", 40)`.
+    You can also see this value in the Okta user interface for claims, under **Mapping**: `getFilteredGroups(app.profile.groupwhitelist, "group.name", 40)`.
     
     See [group function documentation](/reference/okta_expression_language/#group-functions) for more information about specifying groups with `getFilteredGroups`.
 
