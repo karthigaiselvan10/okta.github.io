@@ -4,7 +4,8 @@ weight: 1
 title: Authentication
 excerpt: Overview of the ways Okta can be used to authenticate users depending on your needs.
 ---
-
+# Adding something new in the docs
+This is a Platform course test
 # Authentication with Okta
 
 Authentication is a crucial part of any application development.  Whether you are developing an internal IT app for your employees – or building a portal for your partners – or exposing a set of APIs for developers building apps around your resources, Okta provides the right support for your projects.
